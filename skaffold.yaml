@@ -1,0 +1,19 @@
+apiVersion: skaffold/v2beta29
+kind: Config
+build:
+  artifacts:
+  - image: localhost:32000/kwonghung/springboot3-webflux
+    context: springboot3-webflux
+    jib:
+      type: maven
+  insecureRegistries: ["localhost:32000"]
+deploy:
+  kubectl:
+    manifests: [
+      "k8s/ingress-config.yaml",
+      "k8s/webflux-*.yaml",
+      "k8s/prometheus-*.yaml",
+      "k8s/grafana-*.yaml",
+      "k8s/pushgateway-*.yaml",
+      "k8s/selfsigned-cert.yaml"
+    ]

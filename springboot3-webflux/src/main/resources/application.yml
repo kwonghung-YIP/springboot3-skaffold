@@ -1,0 +1,35 @@
+spring:
+  devtools:
+    add-properties: false
+
+server:
+  http2:
+    enabled: true
+#  ssl:
+#    enabled: true
+#    key-store: file:/app/resources/certs/keystore.jks
+#    key-store-password: passw0rd
+#  servlet:
+#    context-path: /webflux
+
+logging:
+  level:
+    io.prometheus: debug
+    
+management:
+  prometheus:
+    metrics:
+      export:  
+        pushgateway:
+          enabled: true
+          base-url: http://pushgateway-service:9091
+          shutdown-operation: push
+  endpoints:
+    web:
+      exposure:
+        include: #"*"
+        - health
+        - metrics
+        - prometheus
+#  server:
+#    port: 8081

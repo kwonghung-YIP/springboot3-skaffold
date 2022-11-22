@@ -1,0 +1,36 @@
+#
+# cert-manager API reference:
+# https://cert-manager.io/docs/reference/api-docs/#cert-manager.io%2fv1
+#
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: selfsigned-issuer
+spec:
+  selfSigned: {}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: keystore-secret
+type: Opaque
+stringData:
+  jks-keystore-passwd: passw0rd
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: selfsigned-cert
+spec:
+  commonName: my-domain
+  secretName: selfsigned-secret
+  issuerRef:
+    name: selfsigned-issuer
+    kind: Issuer
+    group: cert-manager.io
+  keystores:
+    jks:
+      create: true
+      passwordSecretRef:
+        name: keystore-secret
+        key: jks-keystore-passwd

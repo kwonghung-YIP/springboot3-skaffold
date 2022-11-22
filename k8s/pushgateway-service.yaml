@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pushgateway-service
+spec:
+  type: ClusterIP
+  selector:
+    app: pushgateway
+  ports:
+  - port: 9091
+    targetPort: 9091
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pushgateway-deployment
+spec:
+  selector:
+    matchLabels:
+      app: pushgateway
+  template:
+    metadata:
+      labels:
+        app: pushgateway
+    spec:
+      containers:
+      - name: pushgateway
+        image: prom/pushgateway:v1.4.3
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "100m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - name: http
+          containerPort: 9091
