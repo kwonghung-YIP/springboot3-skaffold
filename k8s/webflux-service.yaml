@@ -23,6 +23,7 @@ spec:
   selector:
     matchLabels:
       app: webflux
+  replicas: 2
   template:
     metadata:
       labels:
