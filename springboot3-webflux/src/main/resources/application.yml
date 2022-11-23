@@ -15,7 +15,41 @@ server:
 logging:
   level:
     io.prometheus: debug
-    
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: #"*"
+        - health
+        - metrics
+        - prometheus
+  server:
+    port: 8081
+
+---
+spring:
+  config:
+    activate:
+      on-profile:
+      - local-sts
+
+server:
+  http2:
+    enabled: true
+  ssl:
+    enabled: true
+    key-store: classpath:selfsigned.p12
+    key-store-type: PKCS12
+    key-store-password: abcd1234
+
+---
+spring:
+  config:
+    activate:
+      on-profile:
+      - local-microk8s
+          
 management:
   prometheus:
     metrics:
@@ -24,12 +58,3 @@ management:
           enabled: true
           base-url: http://pushgateway-service:9091
           shutdown-operation: push
-  endpoints:
-    web:
-      exposure:
-        include: #"*"
-        - health
-        - metrics
-        - prometheus
-#  server:
-#    port: 8081

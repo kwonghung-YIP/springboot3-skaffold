@@ -23,7 +23,7 @@ spec:
   selector:
     matchLabels:
       app: webflux
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
@@ -42,6 +42,9 @@ spec:
         ports:
         - name: http
           containerPort: 8080
+        env:
+          - name: SPRING_PROFILES_ACTIVE
+            value: local-microk8s
         volumeMounts:
           # the path /app/resources is created by jib 
           - mountPath: /app/resources/certs
