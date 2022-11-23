@@ -14,4 +14,11 @@ data:
         isDefault: true
         version: 1
         editable: false
+  dashboards.yml: |-  
+    - name: 'default'
+      org_id: 1
+      folder: ''
+      type: 'file'
+      options:
+        folder: '/var/lib/grafana/dashboards'
 

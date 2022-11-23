@@ -46,13 +46,22 @@ spec:
         ports:
         - containerPort: 3000
         volumeMounts:
-          - mountPath: /etc/grafana/provisioning/datasources
+          - mountPath: /etc/grafana/provisioning
             name: datasrc
+            readOnly: true
+          - mountPath: /var/lib/grafana/dashboards
+            name: dashboard
       volumes:
         - name: datasrc
           configMap:
             name: grafana-config
             items:
             - key: datasrc.yml
-              path: datasrc-prometheus.yml
+              path: datasources/datasrc-prometheus.yml
+            - key: dashboards.yml
+              path: dashboards/dashboards.yml
+        - name: dashboard
+          hostPath:
+            path: /home/hung/projects/springboot-skaffold/monitor/grafana/dashboard
+            type: Directory
             
