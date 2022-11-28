@@ -11,7 +11,8 @@
 - Generate self-signed cert, import into p12 keystore with openssl
 - Google jib build image and register to microk8s private registry (localhost:32000)
 - ConfigMap volume mapping (Secret, data, hostPath)
-- Spring native build  
+- Spring native build
+- Spring boot k8s readiness and liveness probles monitoring 
 
 ### Modules enable for microk8s
 - dns
